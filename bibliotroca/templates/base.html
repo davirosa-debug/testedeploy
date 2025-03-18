@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{% block title %}Bibliotroca{% endblock %}</title>
+</head>
+<body>
+    <nav>
+        <a href="{% url 'home' %}">Home</a>
+        <a href="{% url 'livros' %}">Livros</a>
+        {% if user.is_authenticated %}
+        <a href="{% url 'cadastrar_livro' %}">Cadastrar Livro</a>
+        <a href="{% url 'sessao' %}">Sessão</a>
+        <a href="{% url 'sair' %}">Sair</a>
+        {% else %}
+        <a href="{% url 'cadastrar' %}">Cadastrar</a>
+        <a href="{% url 'logar' %}">Login</a>
+        {% endif %}
+    </nav>
+
+    {% if messages %}
+    <ul class="messages">
+        {% for message in messages %}
+        <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+
+    {% block content %}{% endblock %}
+</body>
+</html>
